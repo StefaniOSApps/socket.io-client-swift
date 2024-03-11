@@ -356,7 +356,7 @@ open class SocketIOClient: NSObject, SocketIOClientSpec {
     /// - parameter isInternalMessage: Whether this event was sent internally. If `true` it is always sent to handlers.
     /// - parameter ack: If > 0 then this event expects to get an ack back from the client.
     open func handleEvent(_ event: String, data: [Any], isInternalMessage: Bool, withAck ack: Int = -1) {
-        guard status == .connected || isInternalMessage else { return }
+        guard status == .connected || status == .connecting || isInternalMessage else { return }
 
         DefaultSocketLogger.Logger.log("Handling event: \(event) with data: \(data)", type: logType)
 
